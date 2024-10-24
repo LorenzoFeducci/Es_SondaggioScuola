@@ -22,9 +22,26 @@
         $data = $_GET["data"];
         $orario = $_GET["tempo"];
         $scuola = $_GET["scuola"];
-        $corsoInglese = $_GET["corsoInglese"];
-        $corsoTeatro = $_GET["corsoTeatro"];
-        $attivitaSportiva = $_GET["attivitaSport"];
+        $corsi = [];
+
+        if(isset($_GET["corsoInglese"])){
+            $corsoInglese = $_GET["corsoInglese"];
+            array_push($corsi , $corsoInglese);
+        }
+        if(isset($_GET["corsoTeatro"])){
+            $corsoTeatro = $_GET["corsoTeatro"];
+            array_push($corsi , $corsoTeatro);
+        }
+        if(isset($_GET["attivitaSport"])){
+            $attivitaSportiva = $_GET["attivitaSport"];
+            array_push($corsi , $attivitaSportiva);
+        }
+        
+        if(empty($corsi)){
+            $strCorsi = "nessuna attività";
+        }else{
+            $strCorsi = implode("," , $corsi);
+        }
 
         echo "<table>";
             echo "<tr>";
@@ -41,23 +58,7 @@
                 echo "<td>$data</td>";
                 echo "<td>$orario</td>";
                 echo "<td>$scuola</td>";
-                
-                if($corsoInglese == "inglese"){
-                    echo "<td>$corsoInglese</td>";
-                }else if($corsoTeatro == "teatro"){
-                    echo "<td>$corsoTeatro</td>";
-                }else if($attivitaSportiva == "sport"){
-                    echo "<td>$attivitaSportiva</td>";
-                }else if($corsoInglese == "inglese" && $corsoTeatro == "teatro"){
-                    echo "<td>$corsoInglese" . " , " . "$corsoTeatro</td>";
-                }else if($corsoInglese == "inglese" && $attivitaSportiva == "sport"){
-                    echo "<td>$corsoInglese" . " , " . "$attivitaSportiva</td>";
-                }else if($corsoTeatro == "teatro" && $attivitaSportiva == "sport"){
-                    echo "<td>$corsoTeatro" . " , " . "$attivitaSportiva</td>";
-                }else{
-                    echo "<td>$corsoInglese" . " , " . "$corsoTeatro" . " , " . "$attivitaSportiva</td>";
-                }
-                    
+                echo  "<td>$strCorsi</td>";
             echo "</tr>";
         echo "</table>";
     ?>
